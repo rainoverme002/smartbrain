@@ -29,34 +29,43 @@ class App extends React.Component {
     super();
     this.state = {
       input: "",
-      imageUrl: ""
+      imageUrl: "",
+      box: {}
     };
   }
 
+  calculateBoundingBox = data => {
+    const clarifaiResponse =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const height = Number(image.height);
+    const width = Number(image.width);
+
+    return {
+      topRow: clarifaiResponse.top_row * height,
+      leftCol: clarifaiResponse.left_col * width,
+      bottomRow: height - clarifaiResponse.bottom_row * height,
+      rightCol: width - clarifaiResponse.right_col * width
+    };
+  };
+
+  displayBoundingBox = box => {
+    this.setState({ box: box });
+  };
+
   onInputChange = event => {
-    console.log(event.target.value);
     this.setState({ input: event.target.value });
   };
 
   onButtonSubmit = () => {
-    console.log("click");
     this.setState({ imageUrl: this.state.input });
     app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        "https://samples.clarifai.com/face-det.jpg"
-      )
-      .then(
-        function(response) {
-          // do something with response
-          console.log(
-            response.outputs[0].data.regions[0].region_info.bounding_box
-          );
-        },
-        function(err) {
-          // there was an error
-        }
-      );
+      .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then(response => {
+        this.displayBoundingBox(
+          this.calculateBoundingBox(response)
+        ).catch(err => console.log(err));
+      });
   };
 
   render() {
@@ -70,7 +79,10 @@ class App extends React.Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition imageUrl={this.state.imageUrl} />
+        <FaceRecognition
+          boundingBox={this.state.box}
+          imageUrl={this.state.imageUrl}
+        />
       </div>
     );
   }
