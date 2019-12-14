@@ -1,9 +1,9 @@
 import React from "react";
-import Navigation from "../components/Navigation";
-import Logo from "../components/Logo";
-import ImageLinkForm from "../components/ImageLinkForm";
-import FaceRecognition from "../components/FaceRecognition";
-import Rank from "../components/Rank";
+import Navigation from "../components/Navigation/Navigation";
+import Logo from "../components/Logo/Logo";
+import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
+import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
+import Rank from "../components/Rank/Rank";
 import Particles from "react-particles-js";
 import Clarifai from "clarifai";
 import "./App.css";
