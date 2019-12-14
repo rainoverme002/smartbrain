@@ -4,7 +4,7 @@ import "./Logo.css";
 import Brain from "../../assets/brain.png";
 const Logo = () => {
   return (
-    <div className=" center ma4 mt0">
+    <div className=" center pa2 mt0">
       <Tilt
         className="Tilt br2 shadow-2"
         options={{ max: 55 }}
