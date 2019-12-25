@@ -93,6 +93,19 @@ class App extends React.Component {
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => {
+        if (response) {
+          fetch("http://localhost:3000/image", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count }));
+            });
+        }
         this.displayBoundingBox(
           this.calculateBoundingBox(response)
         ).catch(err => console.log(err));
