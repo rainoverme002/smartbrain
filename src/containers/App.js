@@ -122,7 +122,10 @@ class App extends React.Component {
               isSignedIn={this.state.isSignedIn}
             />
             <Logo />
-            <Signin onRouteChange={this.onRouteChange} />
+            <Signin
+              loadUser={this.loadUser}
+              onRouteChange={this.onRouteChange}
+            />
           </div>
         ) : this.state.route === "home" ? (
           <div>
@@ -131,7 +134,10 @@ class App extends React.Component {
               isSignedIn={this.state.isSignedIn}
             />
             <Logo />
-            <Rank />
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onButtonSubmit}
