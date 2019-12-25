@@ -34,7 +34,15 @@ class App extends React.Component {
       imageUrl: "",
       box: {},
       route: "signin",
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        password: "",
+        entries: 0,
+        joined: ""
+      }
     };
   }
 
@@ -43,6 +51,19 @@ class App extends React.Component {
       .then(response => response.json())
       .then(console.log);
   }
+
+  loadUser = data => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        entries: data.entries,
+        joined: data.joined
+      }
+    });
+  };
 
   calculateBoundingBox = data => {
     const clarifaiResponse =
@@ -128,7 +149,10 @@ class App extends React.Component {
               isSignedIn={this.state.isSignedIn}
             />
             <Logo />
-            <Register onRouteChange={this.onRouteChange} />
+            <Register
+              loadUser={this.loadUser}
+              onRouteChange={this.onRouteChange}
+            />
           </div>
         )}
       </div>
