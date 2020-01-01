@@ -26,24 +26,26 @@ const paramsOption = {
   }
 };
 
+const initialState = {
+  input: "",
+  imageUrl: "",
+  box: {},
+  route: "signin",
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    password: "",
+    entries: 0,
+    joined: ""
+  }
+};
+
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      input: "",
-      imageUrl: "",
-      box: {},
-      route: "signin",
-      isSignedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        password: "",
-        entries: 0,
-        joined: ""
-      }
-    };
+    this.state = initialState;
   }
 
   componentDidMount() {
@@ -114,11 +116,9 @@ class App extends React.Component {
 
   onRouteChange = route => {
     if (route === "signout" || route === "signin") {
-      this.setState({ isSignedIn: false });
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
-      console.log(route);
-      console.log(this.state.isSignedIn);
     }
     this.setState({ route: route });
   };
