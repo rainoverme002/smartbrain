@@ -9,6 +9,8 @@ import Register from "../components/Register/Register";
 import Particles from "react-particles-js";
 import "./App.css";
 
+const backEndURL = "https://still-journey-34659.herokuapp.com";
+
 const paramsOption = {
   particles: {
     number: {
@@ -44,7 +46,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/")
+    fetch(`backEndURL/`)
       .then(response => response.json())
       .then(console.log);
   }
@@ -87,7 +89,7 @@ class App extends React.Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch("http://localhost:3000/imageurl", {
+    fetch(`${backEndURL}/imageurl`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -97,7 +99,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch("http://localhost:3000/image", {
+          fetch(`${backEndURL}/image`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

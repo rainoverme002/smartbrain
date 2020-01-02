@@ -1,5 +1,7 @@
 import React from "react";
 
+const backEndURL = "https://still-journey-34659.herokuapp.com";
+
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +25,7 @@ class Register extends React.Component {
   };
 
   onRegister = () => {
-    fetch("http://localhost:3000/register", {
+    fetch(`${backEndURL}/register`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
