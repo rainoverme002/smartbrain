@@ -26,7 +26,7 @@ const paramsOption = {
 const initialState = {
   input: "",
   imageUrl: "",
-  box: {},
+  boxes: [],
   route: "signin",
   isSignedIn: false,
   user: {
@@ -65,22 +65,23 @@ class App extends React.Component {
   };
 
   calculateBoundingBox = data => {
-    const clarifaiResponse =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputImage");
     const height = Number(image.height);
     const width = Number(image.width);
 
-    return {
-      topRow: clarifaiResponse.top_row * height,
-      leftCol: clarifaiResponse.left_col * width,
-      bottomRow: height - clarifaiResponse.bottom_row * height,
-      rightCol: width - clarifaiResponse.right_col * width
-    };
+    return data.outputs[0].data.regions.map((region) => {
+      const bounding_box = region.region_info.bounding_box;
+      return {
+        topRow: bounding_box.top_row * height,
+        leftCol: bounding_box.left_col * width,
+        bottomRow: height - bounding_box.bottom_row * height,
+        rightCol: width - bounding_box.right_col * width,
+      };
+    });
   };
 
-  displayBoundingBox = box => {
-    this.setState({ box: box });
+  displayBoundingBox = boxes => {
+    this.setState({ boxes: boxes });
   };
 
   onInputChange = event => {
@@ -157,7 +158,7 @@ class App extends React.Component {
               onButtonSubmit={this.onButtonSubmit}
             />
             <FaceRecognition
-              boundingBox={this.state.box}
+              boundingBoxes={this.state.boxes}
               imageUrl={this.state.imageUrl}
             />
           </div>
