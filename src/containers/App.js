@@ -9,19 +9,23 @@ import Register from "../components/Register/Register";
 import Particles from "react-particles-js";
 import "./App.css";
 
-const backEndURL = "https://still-journey-34659.herokuapp.com";
+let backEndURL = process.env.REACT_APP_BACK_END_URL;
 
-const paramsOption = {
-  particles: {
-    number: {
-      value: 30,
-      density: {
-        enable: true,
-        value: 40
-      }
-    }
-  }
-};
+if (process.env.NODE_ENV === 'development') {
+  backEndURL = process.env.REACT_APP_BACK_END_URL_DOCKER;
+}
+
+  const paramsOption = {
+    particles: {
+      number: {
+        value: 30,
+        density: {
+          enable: true,
+          value: 40,
+        },
+      },
+    },
+  };
 
 const initialState = {
   input: "",

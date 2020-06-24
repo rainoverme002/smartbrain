@@ -1,6 +1,10 @@
 import React from "react";
 
-const backEndURL = "https://still-journey-34659.herokuapp.com";
+let backEndURL = process.env.REACT_APP_BACK_END_URL;
+
+if (process.env.NODE_ENV === "development") {
+  backEndURL = process.env.REACT_APP_BACK_END_URL_DOCKER;
+}
 
 class Register extends React.Component {
   constructor(props) {
