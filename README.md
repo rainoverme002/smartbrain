@@ -17,7 +17,7 @@ What things you need to use it
 
 ## Deployment
 
-Already Deploy to [this link](http://smart-brain-rainoverme002.herokuapp.com/)
+Already Deploy to [this link](https://smartcerebrum.netlify.app)
 
 ## Contributing
 
@@ -26,7 +26,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
-[rainoverme002](https://github.com/rainoverme002)
+[whitequbits](https://github.com/whitequbits)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
